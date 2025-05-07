@@ -11,10 +11,23 @@ class UsersController < ApplicationController
     @user = User.new(allowed_user_params)
 
     if @user.save
-      redirect_to new_users_path
+      redirect_to new_user_path
     else
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def update
+    @user = User.find(params[:id])
+    if @user.update(allowed_user_params)
+      redirect_to new_user_path
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+    @user = User.find(params[:id])
   end
 
   private
